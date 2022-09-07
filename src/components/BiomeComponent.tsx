@@ -28,6 +28,20 @@ const npcContainerStyle = css`
     align-items: center;
 `;
 
+const headerStyle = css`
+    justify-self: center;
+    margin-top: 10px;
+    white-space: nowrap;
+    height: 10px;
+    line-height: 13px;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-style: solid;
+    border-radius: 20px;
+    border-color: #00000000;
+    border-width: 0.25em;
+`;
+
 interface Props {
     biome: Biome;
     npcs: Npc[];
@@ -41,11 +55,14 @@ export default function BiomeComponent(props: Props) {
 
     return (
         <div ref={setNodeRef} css={containerStyle}>
-            <img css={[stackedChildStyle, imgStyle]} src={forest} alt="forest" />
+            <img css={[stackedChildStyle, imgStyle]} src={forest} alt={props.biome.name} />
             <div css={[stackedChildStyle, npcContainerStyle]}>
                 {props.npcs.map(npc => (
                     <NpcComponent dragId={`${npc.name}-${props.biome.name}`} key={npc.name} npc={npc} />
                 ))}
+            </div>
+            <div css={[stackedChildStyle, headerStyle]}>
+                {props.biome.name}
             </div>
         </div>
     );

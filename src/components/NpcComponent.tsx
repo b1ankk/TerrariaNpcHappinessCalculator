@@ -9,7 +9,6 @@ const imageWrapperStyle = css`
     display: flex;
     flex-direction: column;
     align-content: center;
-    gap: 4px;
     align-items: center;
     cursor: pointer;
 `;
@@ -20,7 +19,20 @@ const imageStyle = css`
 `;
 
 const labelStyle = css`
-    padding: 5px 0;
+    text-align: center;
+    white-space: nowrap;
+    height: 10px;
+    line-height: 13px;
+    font-size: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-style: solid;
+    border-radius: 20px;
+    border-color: rgba(0, 0, 0, 0);
+    border-width: 0.25em;
+`;
+
+const scoreStyle = css`
+    color: yellow;
 `;
 
 interface Props {
@@ -39,14 +51,15 @@ export default function NpcComponent(props: Props) {
         ? css`visibility: hidden;`
         : '';
 
-    const translateStyle = css`
-        transform: ${CSS.Translate.toString(transform)};
-    `;
+    const translateReactStyle = {
+        transform: CSS.Translate.toString(transform),
+    };
 
     return (
-        <div ref={setNodeRef} css={[imageWrapperStyle, translateStyle, hiddenStyle]} {...listeners} {...attributes}>
+        <div ref={setNodeRef} css={[imageWrapperStyle, hiddenStyle]} style={translateReactStyle} {...listeners} {...attributes}>
             <img css={imageStyle} src={image} alt={props.npc.name} />
             <div css={labelStyle} >{props.npc.name}</div>
+            <div css={[labelStyle, scoreStyle]} >0.89</div>
         </div>
     );
 }

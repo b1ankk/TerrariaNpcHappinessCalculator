@@ -13,6 +13,7 @@ const mainContainerStyle = css`
     display: flex;
     justify-content: center;
     padding: 1rem;
+    gap: 40px;
 `;
 
 function initNpcsByBiomeMap(biomes: readonly Biome[]): Map<Biome, Npc[]> {
