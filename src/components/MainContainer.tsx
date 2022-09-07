@@ -37,8 +37,18 @@ export default function MainContainer() {
 
     function addNpcToBiome(npc: Npc, biome: Biome) {
         setFreeNpcs(storedFreeNpcs => storedFreeNpcs.filter(storedNpc => storedNpc !== npc));
-        setNpcsByBiome(storedNpcsByBiome =>
-            new Map(storedNpcsByBiome).set(biome, [...(storedNpcsByBiome.get(biome) ?? []), npc])
+        setNpcsByBiome(storedNpcsByBiome => {
+            const newMap = new Map(storedNpcsByBiome);
+            newMap.forEach((npcs, biome) => {
+                if (npcs.includes(npc))
+                    newMap.set(biome, [...(newMap.get(biome) ?? []).filter(storedNpc => storedNpc !== npc)]);
+            });
+            newMap.set(biome, [
+                ...(newMap.get(biome) ?? []),
+                npc,
+            ]);
+            return newMap;
+        }
         );
     }
 
@@ -48,10 +58,8 @@ export default function MainContainer() {
 
         if (!npc) return;
 
-        if (biome != null)
-            addNpcToBiome(npc, biome);
-        else
-            removeNpcFromBiome(npc);
+        if (biome != null) addNpcToBiome(npc, biome);
+        else removeNpcFromBiome(npc);
     }
 
     return (
