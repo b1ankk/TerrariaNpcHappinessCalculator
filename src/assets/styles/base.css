@@ -1,6 +1,12 @@
+@import url(https://db.onlinewebfonts.com/c/775c3814e9c1f228d495333e07580d59?family=Andy);
+
 #root {
     display: flex;
     justify-content: center;
+    font-family: 'Andy', sans-serif;
+    color: white;
+    box-sizing: border-box;
+    user-select: none;
 }
 
 body {

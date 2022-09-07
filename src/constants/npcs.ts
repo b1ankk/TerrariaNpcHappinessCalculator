@@ -38,7 +38,8 @@ abstract class BiomesAndNeighborsDelegates {
     abstract neighbors(...neighbors: ReadonlyNpc[]): Npc;
 }
 
-export type ReadonlyNpc = Omit<Npc, 'addLoved' | 'addLiked' | 'addDisliked' | 'addHated'>;
+type ReadonlyNpc = Omit<Npc, 'addLoved' | 'addLiked' | 'addDisliked' | 'addHated'>;
+export type { ReadonlyNpc as Npc};
 
 class Npc {
     private readonly _type: Npc;

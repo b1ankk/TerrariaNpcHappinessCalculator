@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
-import Npc from './Npc';
+import { AllNpcs, Npc } from '../constants/npcs';
+import NpcComponent from './NpcComponent';
+
 
 const containerStyle = css`
     display: flex;
@@ -8,22 +10,20 @@ const containerStyle = css`
 
 const npcContainerStyle = css`
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    grid-template-rows: 1fr 1fr auto;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto auto;
 `;
 
-export default function NpcGrid() {
+interface Props {
+    npcs: Npc[]
+}
+
+export default function NpcGrid(props: Props) {
+
     return (
         <div css={containerStyle}>
             <div css={npcContainerStyle}>
-                <Npc/>
-                <Npc/>
-                <Npc/>
-                <Npc/>
-                <Npc/>
-                <Npc/>
-                <Npc/>
-                <Npc/>
+                {AllNpcs.map(npc => <NpcComponent hidden={!props.npcs.includes(npc)} key={npc.name} npc={npc}/>)}
             </div>
             <div></div>
         </div>

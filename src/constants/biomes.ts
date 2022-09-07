@@ -21,4 +21,17 @@ const Cavern = new ReadonlyBiome('Caverns');
 const Underworld = new ReadonlyBiome('The Underworld');
 const GlowingMushroomBiome = new ReadonlyBiome('Glowing Mushroom Biome');
 
-export { Forest, SnowBiome, Desert, Jungle, Ocean, Hallow, Underground, Cavern, Underworld, GlowingMushroomBiome };
+const AllBiomes = [
+    Forest,
+    SnowBiome,
+    Desert,
+    Jungle,
+    Ocean,
+    Hallow,
+    Underground,
+    Cavern,
+    Underworld,
+    GlowingMushroomBiome,
+] as const;
+
+export { Forest, SnowBiome, Desert, Jungle, Ocean, Hallow, Underground, Cavern, Underworld, GlowingMushroomBiome, AllBiomes };
