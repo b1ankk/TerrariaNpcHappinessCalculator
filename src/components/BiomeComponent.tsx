@@ -2,8 +2,9 @@ import { useDroppable } from '@dnd-kit/core';
 import { css } from '@emotion/react';
 import forest from '../assets/img/biomes/BiomeBannerForest.webp';
 import { Biome } from '../constants/biomes';
-import { Npc } from '../constants/npcs';
+import { FreeNpcsSet } from '../util/npcsAndBiomesManager';
 import NpcComponent from './NpcComponent';
+
 
 const imgStyle = css`
     width: 100%;
@@ -44,7 +45,7 @@ const headerStyle = css`
 
 interface Props {
     biome: Biome;
-    npcs: Npc[];
+    npcs: FreeNpcsSet;
 }
 
 export default function BiomeComponent(props: Props) {

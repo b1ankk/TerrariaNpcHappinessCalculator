@@ -1,9 +1,8 @@
 import { DndContext } from '@dnd-kit/core';
 import { css } from '@emotion/react';
 import { useState } from 'react';
-import { AllBiomes, Biome } from '../constants/biomes';
-import { AllNpcs, Npc } from '../constants/npcs';
 import DragEndEventWithBiomeAndNpc from '../dragEvents/dragEndEventWithBiomeAndNpc';
+import NpcsAndBiomesManager from '../util/npcsAndBiomesManager';
 import BiomesContainer from './BiomesContainer';
 import NpcGrid from './NpcGrid';
 
@@ -16,42 +15,8 @@ const mainContainerStyle = css`
     gap: 40px;
 `;
 
-function initNpcsByBiomeMap(biomes: readonly Biome[]): Map<Biome, Npc[]> {
-    return new Map(biomes.map(biome => [biome, []]));
-}
-
 export default function MainContainer() {
-    const [npcsByBiome, setNpcsByBiome] = useState(initNpcsByBiomeMap(AllBiomes));
-    const [freeNpcs, setFreeNpcs] = useState(Array.from(AllNpcs));
-
-    function removeNpcFromBiome(npc: Npc) {
-        setFreeNpcs(storedFreeNpcs => [...storedFreeNpcs, npc]);
-        setNpcsByBiome(storedNpcsByBiome => {
-            const newMap = new Map(storedNpcsByBiome);
-            newMap.forEach((npcs, biome) => {
-                if (npcs.includes(npc))
-                    newMap.set(biome, [...(newMap.get(biome) ?? []).filter(storedNpc => storedNpc !== npc)]);
-            });
-            return newMap;
-        });
-    }
-
-    function addNpcToBiome(npc: Npc, biome: Biome) {
-        setFreeNpcs(storedFreeNpcs => storedFreeNpcs.filter(storedNpc => storedNpc !== npc));
-        setNpcsByBiome(storedNpcsByBiome => {
-            const newMap = new Map(storedNpcsByBiome);
-            newMap.forEach((npcs, biome) => {
-                if (npcs.includes(npc))
-                    newMap.set(biome, [...(newMap.get(biome) ?? []).filter(storedNpc => storedNpc !== npc)]);
-            });
-            newMap.set(biome, [
-                ...(newMap.get(biome) ?? []),
-                npc,
-            ]);
-            return newMap;
-        }
-        );
-    }
+    const [npcsAndBiomeManager, setNpcsAndBiomeManager] = useState(NpcsAndBiomesManager.create());
 
     function handleDragEndEvent(event: DragEndEventWithBiomeAndNpc) {
         const biome = event.over?.data?.current.biome;
@@ -59,15 +24,16 @@ export default function MainContainer() {
 
         if (!npc) return;
 
-        if (biome != null) addNpcToBiome(npc, biome);
-        else removeNpcFromBiome(npc);
+        if (biome == null) 
+            setNpcsAndBiomeManager(manager => manager.moveNpcToFree(npc));
+        else setNpcsAndBiomeManager(manager => manager.moveNpcToBiome(npc, biome));
     }
 
     return (
         <div css={mainContainerStyle}>
             <DndContext onDragEnd={handleDragEndEvent}>
-                <NpcGrid npcs={freeNpcs} />
-                <BiomesContainer npcsByBiome={npcsByBiome} />
+                <NpcGrid npcs={npcsAndBiomeManager.getAllFreeNpcs()} />
+                <BiomesContainer npcsByBiome={npcsAndBiomeManager.getAllNpcsByBiomes()} />
             </DndContext>
         </div>
     );

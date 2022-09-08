@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
-import { AllNpcs, Npc } from '../constants/npcs';
+import { AllNpcs } from '../constants/npcs';
+import { FreeNpcsSet } from '../util/npcsAndBiomesManager';
 import NpcComponent from './NpcComponent';
 
 
@@ -17,7 +18,7 @@ const npcContainerStyle = css`
 `;
 
 interface Props {
-    npcs: Npc[]
+    npcs: FreeNpcsSet
 }
 
 export default function NpcGrid(props: Props) {
@@ -25,7 +26,7 @@ export default function NpcGrid(props: Props) {
     return (
         <div css={containerStyle}>
             <div css={npcContainerStyle}>
-                {AllNpcs.map(npc => <NpcComponent hidden={!props.npcs.includes(npc)} key={npc.name} npc={npc}/>)}
+                {AllNpcs.map(npc => <NpcComponent hidden={!props.npcs.has(npc)} key={npc.name} npc={npc}/>)}
             </div>
             <div></div>
         </div>
