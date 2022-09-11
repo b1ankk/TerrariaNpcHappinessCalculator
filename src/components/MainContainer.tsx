@@ -1,11 +1,13 @@
 import { DndContext } from '@dnd-kit/core';
 import { css } from '@emotion/react';
-import { useState } from 'react';
+import Immutable from 'immutable';
+import { useEffect, useState } from 'react';
+import { Npc } from '../constants/npcs';
 import DragEndEventWithBiomeAndNpc from '../dragEvents/dragEndEventWithBiomeAndNpc';
+import NpcHappinessCalculator from '../util/npcHappinessCalculator';
 import NpcsAndBiomesManager from '../util/npcsAndBiomesManager';
 import BiomesContainer from './BiomesContainer';
 import NpcGrid from './NpcGrid';
-
 
 const mainContainerStyle = css`
     width: 1200px;
@@ -17,6 +19,12 @@ const mainContainerStyle = css`
 
 export default function MainContainer() {
     const [npcsAndBiomeManager, setNpcsAndBiomeManager] = useState(NpcsAndBiomesManager.create());
+    const [npcsToHappiness, setNpcsToHappiness] = useState(Immutable.Map<Npc, number>());
+
+    const npcsByBiomes = npcsAndBiomeManager.getAllNpcsByBiomes();
+    useEffect(() => {
+        setNpcsToHappiness(new NpcHappinessCalculator(npcsByBiomes, true).recalculateHappiness());
+    }, [npcsByBiomes]);
 
     function handleDragEndEvent(event: DragEndEventWithBiomeAndNpc) {
         const biome = event.over?.data?.current.biome;
@@ -24,8 +32,7 @@ export default function MainContainer() {
 
         if (!npc) return;
 
-        if (biome == null) 
-            setNpcsAndBiomeManager(manager => manager.moveNpcToFree(npc));
+        if (biome == null) setNpcsAndBiomeManager(manager => manager.moveNpcToFree(npc));
         else setNpcsAndBiomeManager(manager => manager.moveNpcToBiome(npc, biome));
     }
 
@@ -33,7 +40,7 @@ export default function MainContainer() {
         <div css={mainContainerStyle}>
             <DndContext onDragEnd={handleDragEndEvent}>
                 <NpcGrid npcs={npcsAndBiomeManager.getAllFreeNpcs()} />
-                <BiomesContainer npcsByBiome={npcsAndBiomeManager.getAllNpcsByBiomes()} />
+                <BiomesContainer npcsByBiome={npcsAndBiomeManager.getAllNpcsByBiomes()} npcHappiness={npcsToHappiness} />
             </DndContext>
         </div>
     );

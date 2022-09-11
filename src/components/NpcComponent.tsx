@@ -39,6 +39,7 @@ interface Props {
     dragId?: string;
     hidden?: boolean;
     npc: Npc;
+    happiness: number;
 }
 
 export default function NpcComponent(props: Props) {
@@ -63,7 +64,7 @@ export default function NpcComponent(props: Props) {
         >
             <img css={imageStyle} src={NpcImages.get(props.npc)} alt={props.npc.name} />
             <div css={labelStyle} >{props.npc.name}</div>
-            <div css={[labelStyle, scoreStyle]} >0.89</div>
+            <div css={[labelStyle, scoreStyle]}>{props.happiness.toFixed(2)}</div>
         </div>
     );
 }
