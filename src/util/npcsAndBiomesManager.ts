@@ -1,6 +1,6 @@
-import { AllBiomes, Biome } from "../constants/biomes";
-import {AllNpcs, Npc} from "../constants/npcs";
 import Immutable from 'immutable';
+import { AllUsedBiomes, Biome } from '../constants/biomes';
+import { AllNpcs, Npc } from '../constants/npcs';
 
 export type FreeNpcsSet = Immutable.Set<Npc>;
 export type NpcsByBiomeMap = Immutable.OrderedMap<Biome, Immutable.Set<Npc>>;
@@ -8,9 +8,9 @@ export type NpcsByBiomeMap = Immutable.OrderedMap<Biome, Immutable.Set<Npc>>;
 export default class NpcsAndBiomesManager {
     private readonly freeNpcs: FreeNpcsSet;
     private readonly npcsByBiome: NpcsByBiomeMap;
-    
+
     private constructor(freeNpcs?: FreeNpcsSet, npcsByBiome?: NpcsByBiomeMap) {
-        this.npcsByBiome = npcsByBiome ?? this.makeEmptyNpcsByBiomeMap(AllBiomes);
+        this.npcsByBiome = npcsByBiome ?? this.makeEmptyNpcsByBiomeMap(AllUsedBiomes);
         this.freeNpcs = freeNpcs ?? Immutable.Set(AllNpcs);
     }
 
@@ -73,7 +73,7 @@ export default class NpcsAndBiomesManager {
 
         return this.withFreeNpcs(newFreeNpcs);
     }
-    
+
     private withNpcAddedToFree(npc: Npc) {
         const newFreeNpcs = this.freeNpcs.add(npc);
         if (newFreeNpcs === this.freeNpcs)

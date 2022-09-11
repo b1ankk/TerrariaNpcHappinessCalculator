@@ -1,8 +1,8 @@
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { css } from '@emotion/react';
-import image from '../assets/img/npcs/Guide.png';
 import { Npc } from '../constants/npcs';
+import NpcImages from "../constants/npcImages";
 
 const imageWrapperStyle = css`
     margin: 0.25rem;
@@ -56,8 +56,12 @@ export default function NpcComponent(props: Props) {
     };
 
     return (
-        <div ref={setNodeRef} css={[imageWrapperStyle, hiddenStyle]} style={translateReactStyle} {...listeners} {...attributes}>
-            <img css={imageStyle} src={image} alt={props.npc.name} />
+        <div ref={setNodeRef}
+             css={[imageWrapperStyle, hiddenStyle]}
+             style={translateReactStyle}
+             {...listeners} {...attributes}
+        >
+            <img css={imageStyle} src={NpcImages.get(props.npc)} alt={props.npc.name} />
             <div css={labelStyle} >{props.npc.name}</div>
             <div css={[labelStyle, scoreStyle]} >0.89</div>
         </div>

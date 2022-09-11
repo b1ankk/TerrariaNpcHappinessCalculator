@@ -1,9 +1,13 @@
-@import url(https://db.onlinewebfonts.com/c/775c3814e9c1f228d495333e07580d59?family=Andy);
+@font-face {
+    font-family: AndyBold;
+    src: local('Andy Bold'), url('../fonts/Andy Bold.ttf')
+}
+
 
 #root {
     display: flex;
     justify-content: center;
-    font-family: 'Andy', sans-serif;
+    font-family: AndyBold, sans-serif;
     color: white;
     box-sizing: border-box;
     user-select: none;

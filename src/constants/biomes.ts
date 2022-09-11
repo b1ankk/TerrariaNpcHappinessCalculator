@@ -34,4 +34,19 @@ const AllBiomes = [
     GlowingMushroomBiome,
 ] as const;
 
-export { Forest, SnowBiome, Desert, Jungle, Ocean, Hallow, Underground, Cavern, Underworld, GlowingMushroomBiome, AllBiomes };
+const AllUsedBiomes = AllBiomes.filter(biome => biome !== Underworld && biome !== Underground);
+
+export {
+    Forest,
+    SnowBiome,
+    Desert,
+    Jungle,
+    Ocean,
+    Hallow,
+    Underground,
+    Cavern,
+    Underworld,
+    GlowingMushroomBiome,
+    AllBiomes,
+    AllUsedBiomes,
+};

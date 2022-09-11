@@ -1,9 +1,9 @@
 import { useDroppable } from '@dnd-kit/core';
 import { css } from '@emotion/react';
-import forest from '../assets/img/biomes/BiomeBannerForest.webp';
 import { Biome } from '../constants/biomes';
 import { FreeNpcsSet } from '../util/npcsAndBiomesManager';
 import NpcComponent from './NpcComponent';
+import BiomeImages from "../constants/biomeImages";
 
 
 const imgStyle = css`
@@ -56,7 +56,7 @@ export default function BiomeComponent(props: Props) {
 
     return (
         <div ref={setNodeRef} css={containerStyle}>
-            <img css={[stackedChildStyle, imgStyle]} src={forest} alt={props.biome.name} />
+            <img css={[stackedChildStyle, imgStyle]} src={BiomeImages.get(props.biome)} alt={props.biome.name} />
             <div css={[stackedChildStyle, npcContainerStyle]}>
                 {props.npcs.map(npc => (
                     <NpcComponent dragId={`${npc.name}-${props.biome.name}`} key={npc.name} npc={npc} />
