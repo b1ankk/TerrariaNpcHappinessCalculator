@@ -1,8 +1,9 @@
 import { useDraggable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
 import { css } from '@emotion/react';
+import NpcImages from '../constants/npcImages';
 import { Npc } from '../constants/npcs';
-import NpcImages from "../constants/npcImages";
+import {translateToCss} from "../util/translateHelper";
+
 
 const imageWrapperStyle = css`
     margin: 0.25rem;
@@ -10,7 +11,7 @@ const imageWrapperStyle = css`
     flex-direction: column;
     align-content: center;
     align-items: center;
-    cursor: pointer;
+    z-index: 1;
 `;
 
 const imageStyle = css`
@@ -19,10 +20,11 @@ const imageStyle = css`
 `;
 
 const labelStyle = css`
+    box-sizing: content-box;
     text-align: center;
     white-space: nowrap;
     height: 10px;
-    line-height: 13px;
+    line-height: 0.75em;
     font-size: 20px;
     background: rgba(0, 0, 0, 0.5);
     border-style: solid;
@@ -43,7 +45,7 @@ interface Props {
 }
 
 export default function NpcComponent(props: Props) {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
         id: props.dragId ?? props.npc.name,
         data: { npc: props.npc },
     });
@@ -53,12 +55,17 @@ export default function NpcComponent(props: Props) {
         : '';
 
     const translateReactStyle = {
-        transform: CSS.Translate.toString(transform),
+        transform: translateToCss(transform),
+        zIndex: isDragging ? 10 : 'inherit',
     };
+
+    const grabbingStyle = isDragging
+        ? css`cursor: grabbing;`
+        : css`cursor: grab;`;
 
     return (
         <div ref={setNodeRef}
-             css={[imageWrapperStyle, hiddenStyle]}
+             css={[imageWrapperStyle, hiddenStyle, grabbingStyle]}
              style={translateReactStyle}
              {...listeners} {...attributes}
         >

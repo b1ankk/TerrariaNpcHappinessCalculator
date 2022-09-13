@@ -30,6 +30,7 @@ const npcContainerStyle = css`
 `;
 
 const headerStyle = css`
+    box-sizing: content-box;
     justify-self: center;
     margin-top: 10px;
     white-space: nowrap;
