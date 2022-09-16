@@ -10,10 +10,13 @@ const containerStyle = css`
 
 const npcContainerStyle = css`
     display: grid;
+    row-gap: 8px;
+    column-gap: 2px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto auto auto;
     background: #6670bd;
     border-radius: 30px;
+    padding: 30px 10px;
 `;
 
 interface Props {

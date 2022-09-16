@@ -22,10 +22,9 @@ const stackedChildStyle = css`
 `;
 
 const npcContainerStyle = css`
-    padding: 16px 32px;
+    padding: 16px 38px;
     display: flex;
     flex-wrap: wrap-reverse;
-    align-content: end;
     align-items: center;
 `;
 
@@ -66,6 +65,7 @@ export default function BiomeComponent(props: Props) {
                         key={npc.name}
                         npc={npc}
                         happiness={props.npcHappiness.get(npc) ?? 1}
+                        moveUsingFixedPos={true}
                     />
                 ))}
             </div>

@@ -10,7 +10,7 @@ import BiomesContainer from './BiomesContainer';
 import NpcGrid from './NpcGrid';
 
 const mainContainerStyle = css`
-    width: 1200px;
+    width: auto;
     display: flex;
     justify-content: center;
     padding: 1rem;
