@@ -24,7 +24,17 @@ module.exports = {
         'plugin:@typescript-eslint/recommended-requiring-type-checking',
     ],
     rules: {
-        indent: ['off', 4],
+        indent: ['warn', 4],
+        'max-len': [
+            'warn',
+            {
+                code: 120,
+                ignoreUrls: true,
+                ignoreStrings: true,
+                ignoreTemplateLiterals: true,
+                ignoreRegExpLiterals: true,
+            },
+        ],
         'linebreak-style': ['off', 'windows'],
         semi: ['error', 'always'],
         'no-empty-function': 'off',

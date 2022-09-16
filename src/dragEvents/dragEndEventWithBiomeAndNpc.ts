@@ -1,6 +1,6 @@
 import { DragEndEvent } from '@dnd-kit/core';
+import { Biome } from '../constants/biomes';
 import { Npc } from '../constants/npcs';
-import {Biome} from "../constants/biomes";
 
 interface NpcData {
     active: {
@@ -16,10 +16,10 @@ interface BiomeData {
     over: {
         data?: {
             current: {
-                biome?: Biome
-            }
-        }
-    }
+                biome?: Biome;
+            };
+        };
+    };
 }
 
 type DragEndEventWithBiomeAndNpc = DragEndEvent & NpcData & BiomeData;

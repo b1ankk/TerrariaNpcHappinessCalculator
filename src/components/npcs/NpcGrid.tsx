@@ -1,7 +1,8 @@
 import { css } from '@emotion/react';
-import { AllNpcs } from '../constants/npcs';
-import { FreeNpcsSet } from '../util/npcsAndBiomesManager';
+import { AllNpcs } from '../../constants/npcs';
+import { FreeNpcsSet } from '../../util/npcsAndBiomesManager';
 import NpcComponent from './NpcComponent';
+
 
 const containerStyle = css`
     display: flex;

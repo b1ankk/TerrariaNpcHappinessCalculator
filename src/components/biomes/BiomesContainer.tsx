@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
 import Immutable from 'immutable';
-import { Npc } from '../constants/npcs';
-import { NpcsByBiomeMap } from '../util/npcsAndBiomesManager';
+import { Npc } from '../../constants/npcs';
+import { NpcsByBiomeMap } from '../../util/npcsAndBiomesManager';
 import BiomeComponent from './BiomeComponent';
+
 
 const wrapperStyle = css`
     position: relative;
@@ -61,6 +62,7 @@ const bottomFadeOutOverlayStyle = css`
     pointer-events: none;
 `;
 
+// noinspection CssUnknownProperty
 const scrollbarStyle = css`
     &::-webkit-scrollbar {
         background: #6670bd;

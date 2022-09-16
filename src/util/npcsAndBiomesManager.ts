@@ -15,7 +15,9 @@ export default class NpcsAndBiomesManager {
     }
 
     private makeEmptyNpcsByBiomeMap(biomes: readonly Biome[]): NpcsByBiomeMap {
-        return Immutable.OrderedMap(biomes.map(biome => [biome, Immutable.Set()]));
+        return Immutable.OrderedMap(
+            biomes.map(biome => [biome, Immutable.Set()])
+        );
     }
 
     private withFreeNpcs(freeNpcs: FreeNpcsSet) {
@@ -45,9 +47,7 @@ export default class NpcsAndBiomesManager {
     }
 
     public moveNpcToFree(npc: Npc) {
-        return this
-            .withNpcRemovedFromBiomes(npc)
-            .withNpcAddedToFree(npc);
+        return this.withNpcRemovedFromBiomes(npc).withNpcAddedToFree(npc);
     }
 
     private withNpcAddedToBiome(npc: Npc, biome: Biome) {
@@ -59,7 +59,7 @@ export default class NpcsAndBiomesManager {
     }
 
     private withNpcRemovedFromBiomes(npc: Npc) {
-        const newNpcsByBiome = this.npcsByBiome.map(npcs =>npcs.remove(npc));
+        const newNpcsByBiome = this.npcsByBiome.map(npcs => npcs.remove(npc));
         if (newNpcsByBiome === this.npcsByBiome)
             return this;
 
@@ -92,7 +92,6 @@ export default class NpcsAndBiomesManager {
 }
 
 class BiomeNotFoundError extends Error {
-
     constructor(message: string) {
         super(message);
     }

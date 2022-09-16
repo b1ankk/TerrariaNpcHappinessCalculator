@@ -1,9 +1,9 @@
 import { useDraggable } from '@dnd-kit/core';
 import { css } from '@emotion/react';
 import { useEffect, useState } from 'react';
-import NpcImages from '../constants/npcImages';
-import { Npc } from '../constants/npcs';
-import { translateToCss } from '../util/translateHelper';
+import NpcImages from '../../constants/npcImages';
+import { Npc } from '../../constants/npcs';
+import { translateToCss } from '../../util/translateHelper';
 
 
 const imageWrapperStyle = css`
@@ -46,12 +46,12 @@ interface Props {
 }
 
 export default function NpcComponent(props: Props) {
-    const { attributes, listeners, setNodeRef, transform, isDragging, node } = useDraggable({
+    const {attributes, listeners, setNodeRef, transform, isDragging, node} = useDraggable({
         id: props.dragId ?? props.npc.name,
-        data: { npc: props.npc },
+        data: {npc: props.npc},
     });
-    
-    const [startPos, setStartPos] = useState({x: 0, y: 0});
+
+    const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
     const hiddenStyle = props.hidden
         ? css`visibility: hidden;`
@@ -60,7 +60,7 @@ export default function NpcComponent(props: Props) {
     let zIndexStyle;
     let draggingStyle = {};
     if (isDragging) {
-        zIndexStyle = css`z-index: 10`;
+        zIndexStyle = css`z-index: 10;`;
 
         if (props.moveUsingFixedPos) {
             draggingStyle = {
@@ -69,8 +69,7 @@ export default function NpcComponent(props: Props) {
                 top: startPos.y,
                 transform: `translate(${transform?.x ?? 0}px, ${transform?.y ?? 0}px)`,
             };
-        }
-        else {
+        } else {
             draggingStyle = {
                 transform: translateToCss(transform),
             };
@@ -95,14 +94,22 @@ export default function NpcComponent(props: Props) {
     }, [isDragging, fixedPosX, fixedPosY]);
 
     return (
-        <div ref={setNodeRef}
-             css={[imageWrapperStyle, hiddenStyle, grabbingStyle, zIndexStyle]}
-             style={draggingStyle}
-             {...listeners} {...attributes}
+        <div
+            ref={setNodeRef}
+            css={[imageWrapperStyle, hiddenStyle, grabbingStyle, zIndexStyle]}
+            style={draggingStyle}
+            {...listeners}
+            {...attributes}
         >
-            <img css={imageStyle} src={NpcImages.get(props.npc)} alt={props.npc.name} />
-            <div css={labelStyle} >{props.npc.name}</div>
-            <div css={[labelStyle, scoreStyle]}>{props.happiness.toFixed(2)}</div>
+            <img
+                css={imageStyle}
+                src={NpcImages.get(props.npc)}
+                alt={props.npc.name}
+            />
+            <div css={labelStyle}>{props.npc.name}</div>
+            <div css={[labelStyle, scoreStyle]}>
+                {props.happiness.toFixed(2)}
+            </div>
         </div>
     );
 }

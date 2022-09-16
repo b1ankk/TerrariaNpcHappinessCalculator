@@ -1,10 +1,11 @@
 import { useDroppable } from '@dnd-kit/core';
 import { css } from '@emotion/react';
 import Immutable from 'immutable';
-import BiomeImages from '../constants/biomeImages';
-import { Biome } from '../constants/biomes';
-import { Npc } from '../constants/npcs';
-import NpcComponent from './NpcComponent';
+import BiomeImages from '../../constants/biomeImages';
+import { Biome } from '../../constants/biomes';
+import { Npc } from '../../constants/npcs';
+import NpcComponent from '../npcs/NpcComponent';
+
 
 const imgStyle = css`
     width: 100%;
@@ -50,14 +51,18 @@ interface Props {
 }
 
 export default function BiomeComponent(props: Props) {
-    const { isOver, setNodeRef } = useDroppable({
+    const { setNodeRef } = useDroppable({
         id: props.biome.name,
         data: { biome: props.biome },
     });
 
     return (
         <div ref={setNodeRef} css={containerStyle}>
-            <img css={[stackedChildStyle, imgStyle]} src={BiomeImages.get(props.biome)} alt={props.biome.name} />
+            <img
+                css={[stackedChildStyle, imgStyle]}
+                src={BiomeImages.get(props.biome)}
+                alt={props.biome.name}
+            />
             <div css={[stackedChildStyle, npcContainerStyle]}>
                 {props.npcs.map(npc => (
                     <NpcComponent

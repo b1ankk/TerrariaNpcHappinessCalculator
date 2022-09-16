@@ -6,8 +6,9 @@ import { Npc } from '../constants/npcs';
 import DragEndEventWithBiomeAndNpc from '../dragEvents/dragEndEventWithBiomeAndNpc';
 import NpcHappinessCalculator from '../util/npcHappinessCalculator';
 import NpcsAndBiomesManager from '../util/npcsAndBiomesManager';
-import BiomesContainer from './BiomesContainer';
-import NpcGrid from './NpcGrid';
+import BiomesContainer from './biomes/BiomesContainer';
+import NpcGrid from './npcs/NpcGrid';
+
 
 const mainContainerStyle = css`
     width: auto;
@@ -18,12 +19,21 @@ const mainContainerStyle = css`
 `;
 
 export default function MainContainer() {
-    const [npcsAndBiomeManager, setNpcsAndBiomeManager] = useState(NpcsAndBiomesManager.create());
-    const [npcsToHappiness, setNpcsToHappiness] = useState(Immutable.Map<Npc, number>());
+    const [npcsAndBiomeManager, setNpcsAndBiomeManager] = useState(
+        NpcsAndBiomesManager.create()
+    );
+    const [npcsToHappiness, setNpcsToHappiness] = useState(
+        Immutable.Map<Npc, number>()
+    );
 
     const npcsByBiomes = npcsAndBiomeManager.getAllNpcsByBiomes();
     useEffect(() => {
-        setNpcsToHappiness(new NpcHappinessCalculator(npcsByBiomes, true).recalculateHappiness());
+        setNpcsToHappiness(
+            new NpcHappinessCalculator(
+                npcsByBiomes,
+                true
+            ).recalculateHappiness()
+        );
     }, [npcsByBiomes]);
 
     function handleDragEndEvent(event: DragEndEventWithBiomeAndNpc) {
@@ -32,15 +42,22 @@ export default function MainContainer() {
 
         if (!npc) return;
 
-        if (biome == null) setNpcsAndBiomeManager(manager => manager.moveNpcToFree(npc));
-        else setNpcsAndBiomeManager(manager => manager.moveNpcToBiome(npc, biome));
+        if (biome == null)
+            setNpcsAndBiomeManager(manager => manager.moveNpcToFree(npc));
+        else
+            setNpcsAndBiomeManager(manager =>
+                manager.moveNpcToBiome(npc, biome)
+            );
     }
 
     return (
         <div css={mainContainerStyle}>
             <DndContext onDragEnd={handleDragEndEvent}>
                 <NpcGrid npcs={npcsAndBiomeManager.getAllFreeNpcs()} />
-                <BiomesContainer npcsByBiome={npcsAndBiomeManager.getAllNpcsByBiomes()} npcHappiness={npcsToHappiness} />
+                <BiomesContainer
+                    npcsByBiome={npcsAndBiomeManager.getAllNpcsByBiomes()}
+                    npcHappiness={npcsToHappiness}
+                />
             </DndContext>
         </div>
     );

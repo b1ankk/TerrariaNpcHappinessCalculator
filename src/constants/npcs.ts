@@ -70,7 +70,10 @@ class Npc {
         return this.withBiomesAndNeighbors(this.hated);
     }
 
-    private withBiomesAndNeighbors(biomeAndNeighbors: BiomesAndNeighbors, owner = this): BiomesAndNeighborsDelegates {
+    private withBiomesAndNeighbors(
+        biomeAndNeighbors: BiomesAndNeighbors,
+        owner = this
+    ): BiomesAndNeighborsDelegates {
         return new (class extends BiomesAndNeighborsDelegates {
             neighbors(...neighbors: Npc[]): Npc {
                 biomeAndNeighbors.addNeighbors(...neighbors);
@@ -173,14 +176,14 @@ const AllNpcs = [
         .addDisliked().biomes(Ocean)
         .addDisliked().neighbors(Steampunker)
         .addHated().neighbors(Painter);
-    
+
     Merchant
         .addLiked().biomes(Forest)
         .addLiked().neighbors(Golfer, Nurse)
         .addDisliked().biomes(Desert)
         .addDisliked().neighbors(TaxCollector)
         .addHated().neighbors(Angler);
-    
+
     Nurse
         .addLoved().neighbors(ArmsDealer)
         .addLiked().biomes(Hallow)
@@ -188,27 +191,27 @@ const AllNpcs = [
         .addDisliked().biomes(SnowBiome)
         .addDisliked().neighbors(PartyGirl, Dryad)
         .addHated().neighbors(Zoologist);
-    
+
     Demolitionist
         .addLoved().neighbors(Tavernkeep)
         .addLiked().biomes(Underground, Cavern, Underworld)
         .addLiked().neighbors(Princess, Mechanic)
         .addDisliked().biomes(Ocean)
         .addDisliked().neighbors(GoblinTinkerer, ArmsDealer);
-    
+
     DyeTrader
         .addLiked().biomes(Desert)
         .addLiked().neighbors(ArmsDealer, Painter)
         .addDisliked().biomes(Forest)
         .addDisliked().neighbors(Steampunker)
         .addHated().neighbors(Pirate);
-    
+
     Angler
         .addLiked().biomes(Ocean)
         .addLiked().neighbors(PartyGirl, Demolitionist, TaxCollector)
         .addDisliked().biomes(Desert)
         .addHated().neighbors(Tavernkeep);
-    
+
     Zoologist
         .addLoved().neighbors(WitchDoctor)
         .addLiked().biomes(Forest)
@@ -216,21 +219,21 @@ const AllNpcs = [
         .addDisliked().biomes(Desert)
         .addDisliked().neighbors(Angler)
         .addHated().neighbors(ArmsDealer);
-    
+
     Dryad
         .addLiked().biomes(Jungle)
         .addLiked().neighbors(WitchDoctor, Truffle)
         .addDisliked().biomes(Desert)
         .addDisliked().neighbors(Angler)
         .addHated().neighbors(Golfer);
-    
+
     Painter
         .addLoved().neighbors(Dryad)
         .addLiked().biomes(Jungle)
         .addLiked().neighbors(PartyGirl)
         .addDisliked().biomes(Forest)
         .addDisliked().neighbors(Cyborg, Truffle);
-    
+
     Golfer
         .addLoved().neighbors(Angler)
         .addLiked().biomes(Forest)
@@ -238,7 +241,7 @@ const AllNpcs = [
         .addDisliked().biomes(Underground, Cavern, Underworld)
         .addDisliked().neighbors(Pirate)
         .addHated().neighbors(Merchant);
-    
+
     ArmsDealer
         .addLoved().neighbors(Nurse)
         .addLiked().biomes(Desert)
@@ -246,7 +249,7 @@ const AllNpcs = [
         .addDisliked().biomes(SnowBiome)
         .addDisliked().neighbors(Golfer)
         .addHated().neighbors(Demolitionist);
-    
+
     Tavernkeep
         .addLoved().neighbors(Demolitionist)
         .addLiked().biomes(Hallow)
@@ -254,7 +257,7 @@ const AllNpcs = [
         .addDisliked().biomes(SnowBiome)
         .addDisliked().neighbors(Guide)
         .addHated().neighbors(DyeTrader);
-    
+
     Stylist
         .addLoved().neighbors(DyeTrader)
         .addLiked().biomes(Ocean)
@@ -262,7 +265,7 @@ const AllNpcs = [
         .addDisliked().biomes(SnowBiome)
         .addDisliked().neighbors(Tavernkeep)
         .addHated().neighbors(GoblinTinkerer);
-    
+
     GoblinTinkerer
         .addLoved().neighbors(Mechanic)
         .addLiked().biomes(Underground, Cavern, Underworld)
@@ -270,14 +273,14 @@ const AllNpcs = [
         .addDisliked().biomes(Jungle)
         .addDisliked().neighbors(Clothier)
         .addHated().neighbors(Stylist);
-    
+
     WitchDoctor
         .addLiked().biomes(Jungle)
         .addLiked().neighbors(Dryad, Guide)
         .addDisliked().biomes(Hallow)
         .addDisliked().neighbors(Nurse)
         .addHated().neighbors(Truffle);
-    
+
     Clothier
         .addLoved().neighbors(Truffle)
         .addLiked().biomes(Underground, Cavern, Underworld)
@@ -285,7 +288,7 @@ const AllNpcs = [
         .addDisliked().biomes(Hallow)
         .addDisliked().neighbors(Nurse)
         .addHated().neighbors(Mechanic);
-    
+
     Mechanic
         .addLoved().neighbors(GoblinTinkerer)
         .addLiked().biomes(SnowBiome)
@@ -293,7 +296,7 @@ const AllNpcs = [
         .addDisliked().biomes(Underground, Cavern, Underworld)
         .addDisliked().neighbors(ArmsDealer)
         .addHated().neighbors(Clothier);
-    
+
     PartyGirl
         .addLoved().neighbors(Wizard, Zoologist)
         .addLiked().biomes(Hallow)
@@ -301,7 +304,7 @@ const AllNpcs = [
         .addDisliked().biomes(Underground, Cavern, Underworld)
         .addDisliked().neighbors(Merchant)
         .addHated().neighbors(TaxCollector);
-    
+
     Wizard
         .addLoved().neighbors(Golfer)
         .addLiked().biomes(Hallow)
@@ -309,7 +312,7 @@ const AllNpcs = [
         .addDisliked().biomes(Ocean)
         .addDisliked().neighbors(WitchDoctor)
         .addHated().neighbors(Cyborg);
-    
+
     TaxCollector
         .addLoved().neighbors(Merchant)
         .addLiked().biomes(SnowBiome)
@@ -317,14 +320,14 @@ const AllNpcs = [
         .addDisliked().biomes(Hallow)
         .addDisliked().neighbors(Demolitionist, Mechanic)
         .addHated().neighbors(SantaClaus);
-    
+
     Truffle
         .addLoved().neighbors(Guide)
         .addLiked().biomes(GlowingMushroomBiome)
         .addLiked().neighbors(Dryad)
         .addDisliked().neighbors(Clothier)
         .addHated().neighbors(WitchDoctor);
-    
+
     Pirate
         .addLoved().neighbors(Angler)
         .addLiked().biomes(Ocean)
@@ -332,33 +335,32 @@ const AllNpcs = [
         .addDisliked().biomes(Underground, Cavern, Underworld)
         .addDisliked().neighbors(Stylist)
         .addHated().neighbors(Guide);
-    
+
     Steampunker
         .addLoved().neighbors(Cyborg)
         .addLiked().biomes(Desert)
         .addLiked().neighbors(Painter)
         .addDisliked().biomes(Jungle)
         .addDisliked().neighbors(PartyGirl, Wizard, Dryad);
-    
+
     Cyborg
         .addLiked().biomes(SnowBiome)
         .addLiked().neighbors(Stylist, Pirate, Steampunker)
         .addDisliked().biomes(Jungle)
         .addDisliked().neighbors(Zoologist)
         .addHated().neighbors(Wizard);
-    
+
     SantaClaus
         .addLoved().biomes(SnowBiome)
         .addHated().biomes(Desert)
         .addHated().neighbors(TaxCollector);
-    
+
     Princess
         .addLoved().neighbors(...AllNpcs.filter(npc => npc !== Princess));
     AllNpcs
         .filter(npc => npc !== Princess)
         .forEach(npc => npc.addLiked().neighbors(Princess));
 }
-
 
 const ReadonlyGuide = Guide as ReadonlyNpc;
 const ReadonlyMerchant = Merchant as ReadonlyNpc;

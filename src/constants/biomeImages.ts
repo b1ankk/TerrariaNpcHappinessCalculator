@@ -7,7 +7,16 @@ import HallowImage from '../assets/img/biomes/BiomeBannerHallow.png';
 import JungleImage from '../assets/img/biomes/BiomeBannerJungle.png';
 import OceanImage from '../assets/img/biomes/BiomeBannerOcean.png';
 import SnowBiomeImage from '../assets/img/biomes/BiomeBannerSnow.png';
-import { Cavern, Desert, Forest, GlowingMushroomBiome, Hallow, Jungle, Ocean, SnowBiome } from './biomes';
+import {
+    Cavern,
+    Desert,
+    Forest,
+    GlowingMushroomBiome,
+    Hallow,
+    Jungle,
+    Ocean,
+    SnowBiome,
+} from './biomes';
 
 const BiomeImages = Immutable.Map([
     [Forest, ForestImage],
